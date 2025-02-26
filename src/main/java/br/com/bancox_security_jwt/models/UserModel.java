@@ -2,6 +2,8 @@ package br.com.bancox_security_jwt.models;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
@@ -24,6 +26,11 @@ public class UserModel {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
     private Set<RoleModel> roleModels;
+    @Setter
+    @Getter
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
 
     public UserModel() {
 
