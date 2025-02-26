@@ -30,7 +30,7 @@ public class UserModel {
     @Getter
     @ManyToOne(optional = false)
     @JoinColumn(name = "department_id", nullable = false)
-    private Department department;
+    private DepartmentModel departmentModel;
 
     public UserModel() {
 
