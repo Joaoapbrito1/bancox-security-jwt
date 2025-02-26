@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="main" type="Application" factoryName="Application">
+    <envs>
+      <env name="DB_HOST" value="localhost" />
+      <env name="DB_NAME" value="bancox" />
+      <env name="DB_PASSWORD" value="senha123" />
+      <env name="DB_URL" value="jdbc:postgresql://localhost:5432/bancox" />
+      <env name="DB_USER" value="postgres" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="br.com.bancox_security_jwt.BancoxSecurityJwtApplication" />
+    <module name="bancox-security-jwt" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
