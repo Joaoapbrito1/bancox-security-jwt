@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Set;
-
+@Setter
 @Getter
 @Data
 public class RegisterUserDto {
@@ -13,8 +13,6 @@ public class RegisterUserDto {
     private String username;
     private String password;
     private Set<Roles> roles;
-    @Setter
     private String department;
-
 
 }
