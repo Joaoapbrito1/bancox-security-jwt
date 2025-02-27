@@ -6,6 +6,7 @@
       <env name="DB_PASSWORD" value="senha123" />
       <env name="DB_URL" value="jdbc:postgresql://localhost:5432/bancox" />
       <env name="DB_USER" value="postgres" />
+      <env name="JWT_SECRET" value="Cc1TqqOVLIjj/cSggo22/wFZYJpLT5WNnrpwmCgdQK9ruAaSiWSf1D+EqtvlsP393FOOgJcYSnXQBt3yM4/m+Q==" />
     </envs>
     <option name="MAIN_CLASS_NAME" value="br.com.bancox_security_jwt.BancoxSecurityJwtApplication" />
     <module name="bancox-security-jwt" />
