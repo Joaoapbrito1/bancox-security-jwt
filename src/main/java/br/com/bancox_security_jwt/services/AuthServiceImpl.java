@@ -1,10 +1,11 @@
 package br.com.bancox_security_jwt.services;
 
+import br.com.bancox_security_jwt.dtos.JwtResponse;
 import br.com.bancox_security_jwt.dtos.LoginDto;
 import br.com.bancox_security_jwt.infra.jwt.JwtTokenProvider;
 import br.com.bancox_security_jwt.models.UserModel;
 import br.com.bancox_security_jwt.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -12,39 +13,30 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AuthServiceImpl implements AuthService{
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    private UserRepository userRepository;
+@RequiredArgsConstructor
+public class AuthServiceImpl implements AuthService {
 
-    public String login(LoginDto loginDto) {
-        try {
-            Authentication authentication = authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(
-                            loginDto.getUsername(),
-                            loginDto.getPassword()
-                    )
-            );
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final UserRepository userRepository;
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+    @Override
+    public JwtResponse login(LoginDto loginDto) {
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        loginDto.getUsername(),
+                        loginDto.getPassword()
+                )
+        );
 
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            UserModel user = userRepository
-                    .findByUsername(loginDto.getUsername())
-                    .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+        UserModel user = userRepository.findByUsername(loginDto.getUsername())
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        String department = user.getDepartmentModel().getName();
+        String token = jwtTokenProvider.generateToken(authentication, department);
 
-            String department = user.getDepartmentModel().getName();
-
-            String token = jwtTokenProvider.generateToken(authentication,department);
-
-            return token;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Erro ao autenticar o usuário");
-        }
+        return new JwtResponse(token);
     }
 }
