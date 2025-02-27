@@ -27,7 +27,6 @@ public class SecurityConfig {
 
     private JwtAuthenticationEntryPoint authenticationEntryPoint;
 
-    @Autowired
     private JwtAuthenticationFilter authenticationFilter;
 
     @Bean
